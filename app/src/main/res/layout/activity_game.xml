@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Game Settings"
+            android:textColor="#FFFFFF"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Όνομα Ομάδας 1 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Όνομα Ομάδας 1"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginBottom="6dp" />
+
+        <EditText
+            android:id="@+id/etTeam1"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:hint="π.χ. Ομάδα Α"
+            android:background="#FFFFFF"
+            android:paddingStart="12dp"
+            android:inputType="text"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Όνομα Ομάδας 2 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Όνομα Ομάδας 2"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginBottom="6dp" />
+
+        <EditText
+            android:id="@+id/etTeam2"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:hint="π.χ. Ομάδα Β"
+            android:background="#FFFFFF"
+            android:paddingStart="12dp"
+            android:inputType="text"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Συνολικός αριθμός παικτών -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Συνολικός αριθμός παικτών"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginBottom="6dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:orientation="horizontal"
+            android:background="#FFFFFF"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/tvPlayers"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="6"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingStart="16dp" />
+
+            <Button
+                android:id="@+id/btnPlayersDown"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:text="−"
+                android:textSize="20sp"
+                android:backgroundTint="#EEEEEE" />
+
+            <Button
+                android:id="@+id/btnPlayersUp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:text="+"
+                android:textSize="20sp"
+                android:backgroundTint="#EEEEEE" />
+
+        </LinearLayout>
+
+        <!-- Λέξεις ανά παίκτη -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Λέξεις ανά παίκτη"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginBottom="6dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:orientation="horizontal"
+            android:background="#FFFFFF"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="32dp">
+
+            <TextView
+                android:id="@+id/tvWords"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="5"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingStart="16dp" />
+
+            <Button
+                android:id="@+id/btnWordsDown"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:text="−"
+                android:textSize="20sp"
+                android:backgroundTint="#EEEEEE" />
+
+            <Button
+                android:id="@+id/btnWordsUp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:text="+"
+                android:textSize="20sp"
+                android:backgroundTint="#EEEEEE" />
+
+        </LinearLayout>
+
+        <!-- Κουμπί -->
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Γράψε λέξεις"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#4A90D9" />
+
+    </LinearLayout>
+</ScrollView>
