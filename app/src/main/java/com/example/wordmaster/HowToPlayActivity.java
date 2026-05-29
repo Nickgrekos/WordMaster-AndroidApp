@@ -6,9 +6,6 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.wordmaster.MainActivity;
-import com.example.wordmaster.R;
-
 public class HowToPlayActivity extends AppCompatActivity {
 
     private Button backButton;

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -19,25 +20,28 @@ public class GameActivity extends AppCompatActivity {
     private int wordCount = 5;
     private long lastMessageTime = 0;
     private static final int MESSAGE_COOLDOWN = 2000;
+    private DatabaseHelper dbHelper; // ← ΠΡΟΣΘΗΚΗ 1
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        dbHelper = new DatabaseHelper(this); // ← ΠΡΟΣΘΗΚΗ 2
+
         TextView tvPlayers = findViewById(R.id.tvPlayers);
         TextView tvWords = findViewById(R.id.tvWords);
+        EditText etTeam1 = findViewById(R.id.etTeam1); // ← ΠΡΟΣΘΗΚΗ 3
+        EditText etTeam2 = findViewById(R.id.etTeam2); // ← ΠΡΟΣΘΗΚΗ 4
         Button btnPlayersDown = findViewById(R.id.btnPlayersDown);
         Button btnPlayersUp = findViewById(R.id.btnPlayersUp);
         Button btnWordsDown = findViewById(R.id.btnWordsDown);
         Button btnWordsUp = findViewById(R.id.btnWordsUp);
         Button btnNext = findViewById(R.id.btnNext);
 
-        // Initial UI state
         updateButtonStates(btnPlayersDown, btnPlayersUp, playerCount, 4, 25);
         updateButtonStates(btnWordsDown, btnWordsUp, wordCount, 3, 10);
 
-        // Players Logic
         btnPlayersDown.setOnClickListener(v -> {
             if (playerCount > 4) {
                 playerCount--;
@@ -58,7 +62,6 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-        // Words Logic
         btnWordsDown.setOnClickListener(v -> {
             if (wordCount > 3) {
                 wordCount--;
@@ -79,8 +82,20 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-        // Next Button
+        // ← ΑΛΛΑΓΗ: το btnNext τώρα ελέγχει ονόματα και αποθηκεύει στη βάση
         btnNext.setOnClickListener(v -> {
+            String team1Name = etTeam1.getText().toString().trim();
+            String team2Name = etTeam2.getText().toString().trim();
+
+            if (team1Name.isEmpty() || team2Name.isEmpty()) {
+                showMessage("Βάλε ονόματα και στις δύο ομάδες!");
+                return;
+            }
+
+            dbHelper.resetGame();         // καθαρίζει παλιά δεδομένα
+            dbHelper.insertTeam(team1Name); // αποθηκεύει ομάδα 1
+            dbHelper.insertTeam(team2Name); // αποθηκεύει ομάδα 2
+
             Intent intent = new Intent(GameActivity.this, WordsCreationActivity.class);
             intent.putExtra("PLAYER_COUNT", playerCount);
             intent.putExtra("WORD_COUNT", wordCount);
@@ -92,37 +107,27 @@ public class GameActivity extends AppCompatActivity {
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastMessageTime > MESSAGE_COOLDOWN) {
             Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT);
-            
-            // Get the Snackbar view
             View snackbarView = snackbar.getView();
-            
-            // Set width to WRAP_CONTENT and center it
             FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
             params.width = FrameLayout.LayoutParams.WRAP_CONTENT;
             params.gravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
-            params.setMargins(0, 0, 0, 150); // Margin from bottom
+            params.setMargins(0, 0, 0, 150);
             snackbarView.setLayoutParams(params);
-            
-            // Center text inside the Snackbar
             TextView tv = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
             if (tv != null) {
                 tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             }
-            
             snackbar.show();
             lastMessageTime = currentTime;
         }
     }
 
     private void updateButtonStates(Button btnDown, Button btnUp, int current, int min, int max) {
-        // Update Down button text visibility using textColor
         if (current <= min) {
             btnDown.setTextColor(Color.TRANSPARENT);
         } else {
             btnDown.setTextColor(Color.BLACK);
         }
-
-        // Update Up button text visibility using textColor
         if (current >= max) {
             btnUp.setTextColor(Color.TRANSPARENT);
         } else {
