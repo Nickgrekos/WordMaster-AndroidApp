@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFF8E7"
+    android:background="#FFF0F5"
     android:padding="24dp">
 
     <!-- Header: Team Name -->
@@ -17,22 +17,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="Παίζει η ομάδα:"
             android:textColor="#5D4037"
-            android:textSize="16sp"
-            android:layout_marginBottom="8dp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tvTeamName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ομάδα Α"
-            android:textColor="#FFFFFF"
-            android:textSize="28sp"
-            android:textStyle="bold"
+            android:background="@drawable/team_name_bg_gameplay"
             android:gravity="center"
-            android:background="@drawable/team_name_bg"
-            android:padding="16dp" />
+            android:padding="16dp"
+            android:text="Ομάδα Α"
+            android:textColor="#5D4037"
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -47,9 +47,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:text="⏱"
-            android:textSize="32sp"
-            android:layout_marginEnd="16dp" />
+            android:textColor="#C62828"
+            android:textSize="48sp" />
 
         <TextView
             android:id="@+id/tvTimer"
@@ -70,7 +71,7 @@
         android:layout_weight="1"
         android:orientation="vertical"
         android:gravity="center"
-        android:background="@drawable/card_bg"
+        android:background="@drawable/card_bg_gameplay"
         android:padding="32dp"
         android:layout_marginBottom="24dp">
 

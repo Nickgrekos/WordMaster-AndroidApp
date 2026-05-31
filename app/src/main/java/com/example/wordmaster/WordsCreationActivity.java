@@ -69,7 +69,6 @@ public class WordsCreationActivity extends AppCompatActivity {
                 clearFields();
             } else {
                 // Check if TurnActivity exists before navigating
-                btnNextPlayer.setText("Έναρξη Παιχνιδιού");
                 startTurnActivity();
             }
         });
@@ -124,6 +123,9 @@ public class WordsCreationActivity extends AppCompatActivity {
 
     private void updateTitle() {
         tvPlayerTitle.setText("Player " + currentPlayer + " / " + totalPlayers);
+        if (currentPlayer == totalPlayers) {
+            btnNextPlayer.setText("Έναρξη Παιχνιδιού");
+        }
     }
 
     private void clearFields() {

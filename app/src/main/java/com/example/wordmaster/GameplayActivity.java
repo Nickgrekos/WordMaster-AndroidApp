@@ -85,6 +85,7 @@ public class GameplayActivity extends AppCompatActivity {
     private void correctWord() {
         if (currentWord != null) {
             // Mark word as used
+            //this dbhelper method might need fixing
             dbHelper.markWordAsUsed(currentWord);
 
             // Update score
@@ -128,15 +129,13 @@ public class GameplayActivity extends AppCompatActivity {
         btnSkip.setEnabled(false);
         btnTick.setEnabled(false);
 
-        // Reset word pool for next turn
-        //dbHelper.resetAllWordsToUnused();
-
-        // Navigate to TurnActivity or EndGameActivity
+        // Navigate back to TurnActivity
         Intent intent = new Intent(this, TurnActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("CURRENT_ROUND", currentRound);
         intent.putExtra("SCORE1", score1);
         intent.putExtra("SCORE2", score2);
-        intent.putExtra("CURRENT_TEAM", currentTeamId == 1 ? 0 : 1);
+        intent.putExtra("CURRENT_TEAM", currentTeamId == 1 ? 1 : 0); // Switch to the other team
         startActivity(intent);
         finish();
     }

@@ -20,12 +20,23 @@ public class TurnActivity extends AppCompatActivity {
     int score2 = 0;
 
     @Override
+    protected void onNewIntent(android.content.Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        refreshUI();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_turn);
 
         dbHelper = new DatabaseHelper(this);
 
+        refreshUI();
+    }
+
+    private void refreshUI() {
         // Παίρνουμε ονόματα ομάδων από τη βάση
         loadTeamNames();
 
@@ -33,12 +44,18 @@ public class TurnActivity extends AppCompatActivity {
         currentRound = getIntent().getIntExtra("CURRENT_ROUND", 1);
         score1 = getIntent().getIntExtra("SCORE1", 0);
         score2 = getIntent().getIntExtra("SCORE2", 0);
+        currentTeamIndex = getIntent().getIntExtra("CURRENT_TEAM", 0);
 
-        // Αν είναι ο πρώτος γύρος, τυχαία επιλογή ομάδας
-        if (currentRound == 1) {
-            currentTeamIndex = new Random().nextInt(2);
-        } else {
-            currentTeamIndex = getIntent().getIntExtra("CURRENT_TEAM", 0);
+        // Check if all words are used to advance the round
+        int remainingAtStart = dbHelper.getUnusedWordCount();
+        if (remainingAtStart == 0) {
+            if (currentRound < totalRounds) {
+                currentRound++;
+                dbHelper.resetAllWordsToUnused();
+            } else {
+                // Game finished logic could go here
+                android.widget.Toast.makeText(this, "Το παιχνίδι τελείωσε!", android.widget.Toast.LENGTH_LONG).show();
+            }
         }
 
         TextView tvCurrentTeam = findViewById(R.id.tvCurrentTeam);

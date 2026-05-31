@@ -41,9 +41,9 @@
         android:id="@+id/btnHowToPlay"
         android:layout_width="220dp"
         android:layout_height="52dp"
+        android:backgroundTint="#9B6BDB"
         android:text="How to Play"
-        android:textSize="18sp"
         android:textColor="#FFFFFF"
-        android:backgroundTint="#5B8DD9" />
+        android:textSize="18sp" />
 
 </LinearLayout>

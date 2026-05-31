@@ -106,12 +106,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return word;
     }
 
-    // Mark a word as used
+    // Mark a word as used (only one instance if duplicates exist)
     public void markWordAsUsed(String word) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COL_USED, 1);
-        db.update(TABLE_WORDS, values, COL_WORD + " = ?", new String[]{word});
+        String subQuery = "SELECT " + COL_ID + " FROM " + TABLE_WORDS + " WHERE " + COL_WORD + " = ? AND " + COL_USED + " = 0 LIMIT 1";
+        db.execSQL("UPDATE " + TABLE_WORDS + " SET " + COL_USED + " = 1 WHERE " + COL_ID + " = (" + subQuery + ")", new String[]{word});
         db.close();
     }
 
