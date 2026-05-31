@@ -23,6 +23,7 @@ public class WinnerActivity extends AppCompatActivity {
         TextView tvTeam2Name = findViewById(R.id.tvTeam2Name);
         TextView tvFinalScore1 = findViewById(R.id.tvFinalScore1);
         TextView tvFinalScore2 = findViewById(R.id.tvFinalScore2);
+        TextView tvTrophyEmoji = findViewById(R.id.tvTrophyEmoji);
         Button btnBackHome = findViewById(R.id.btnBackHome);
         Button btnPlayAgain = findViewById(R.id.btnPlayAgain);
 
@@ -34,32 +35,31 @@ public class WinnerActivity extends AppCompatActivity {
         if (score1 > score2) {
             tvWinnerName.setText(team1Name);
             tvWinnerName.setTextColor(getColor(android.R.color.holo_blue_dark));
+            tvTrophyEmoji.setText("🏆");
         } else if (score2 > score1) {
             tvWinnerName.setText(team2Name);
             tvWinnerName.setTextColor(getColor(android.R.color.holo_red_dark));
+            tvTrophyEmoji.setText("🏆");
         } else {
             tvWinnerName.setText("Ισοπαλία!");
             tvWinnerName.setTextColor(getColor(android.R.color.darker_gray));
+            tvTrophyEmoji.setText("🤝");
         }
 
         btnBackHome.setOnClickListener(v -> {
-            dbHelper().resetGame();
+            new DatabaseHelper(this).resetGame();
             Intent intent = new Intent(WinnerActivity.this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         });
 
         btnPlayAgain.setOnClickListener(v -> {
-            dbHelper().resetGame();
+            new DatabaseHelper(this).resetGame();
             Intent intent = new Intent(WinnerActivity.this, GameActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         });
-    }
-
-    private DatabaseHelper dbHelper() {
-        return new DatabaseHelper(this);
     }
 }

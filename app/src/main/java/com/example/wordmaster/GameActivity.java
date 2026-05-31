@@ -20,19 +20,19 @@ public class GameActivity extends AppCompatActivity {
     private int wordCount = 5;
     private long lastMessageTime = 0;
     private static final int MESSAGE_COOLDOWN = 2000;
-    private DatabaseHelper dbHelper; // ← ΠΡΟΣΘΗΚΗ 1
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        dbHelper = new DatabaseHelper(this); // ← ΠΡΟΣΘΗΚΗ 2
+        dbHelper = new DatabaseHelper(this);
 
         TextView tvPlayers = findViewById(R.id.tvPlayers);
         TextView tvWords = findViewById(R.id.tvWords);
-        EditText etTeam1 = findViewById(R.id.etTeam1); // ← ΠΡΟΣΘΗΚΗ 3
-        EditText etTeam2 = findViewById(R.id.etTeam2); // ← ΠΡΟΣΘΗΚΗ 4
+        EditText etTeam1 = findViewById(R.id.etTeam1);
+        EditText etTeam2 = findViewById(R.id.etTeam2);
         Button btnPlayersDown = findViewById(R.id.btnPlayersDown);
         Button btnPlayersUp = findViewById(R.id.btnPlayersUp);
         Button btnWordsDown = findViewById(R.id.btnWordsDown);
@@ -91,9 +91,9 @@ public class GameActivity extends AppCompatActivity {
                 return;
             }
 
-            dbHelper.resetGame();         // καθαρίζει παλιά δεδομένα
-            dbHelper.insertTeam(team1Name); // αποθηκεύει ομάδα 1
-            dbHelper.insertTeam(team2Name); // αποθηκεύει ομάδα 2
+            dbHelper.resetGame();
+            dbHelper.insertTeam(team1Name);
+            dbHelper.insertTeam(team2Name);
 
             Intent intent = new Intent(GameActivity.this, WordsCreationActivity.class);
             intent.putExtra("PLAYER_COUNT", playerCount);

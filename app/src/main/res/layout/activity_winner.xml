@@ -34,11 +34,12 @@
             android:textStyle="bold"
             android:layout_marginBottom="16dp" />
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/trophy"
-            android:contentDescription="Trophy"
+        <TextView
+            android:id="@+id/tvTrophyEmoji"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🏆"
+            android:textSize="80sp"
             android:layout_marginBottom="20dp" />
 
         <TextView

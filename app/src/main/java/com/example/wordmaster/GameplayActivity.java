@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,7 +26,7 @@ public class GameplayActivity extends AppCompatActivity {
     private Button btnSkip;
     private Button btnTick;
 
-    private static final long GAME_DURATION = 10000;//60000; // 1 minute in milliseconds
+    private static final long GAME_DURATION = 10000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +42,6 @@ public class GameplayActivity extends AppCompatActivity {
         score1 = getIntent().getIntExtra("SCORE1", 0);
         score2 = getIntent().getIntExtra("SCORE2", 0);
 
-        // Initialize views
         tvTeamName = findViewById(R.id.tvTeamName);
         tvTimer = findViewById(R.id.tvTimer);
         tvWord = findViewById(R.id.tvWord);
@@ -79,13 +77,12 @@ public class GameplayActivity extends AppCompatActivity {
         if (currentWord != null) {
             dbHelper.markWordAsUsed(currentWord);
 
-            int newScore = (currentTeamId == 1) ? score1 + 1 : score2 + 1;
             if (currentTeamId == 1) {
-                score1 = newScore;
+                score1++;
             } else {
-                score2 = newScore;
+                score2++;
             }
-            dbHelper.updateTeamScore(currentTeamId, newScore);
+            dbHelper.updateTeamScore(currentTeamId, currentTeamId == 1 ? score1 : score2);
             loadNextWord();
         }
     }
@@ -115,12 +112,15 @@ public class GameplayActivity extends AppCompatActivity {
         btnSkip.setEnabled(false);
         btnTick.setEnabled(false);
 
+        // ← ΔΙΟΡΘΩΣΗ: σωστή εναλλαγή ομάδας
+        int nextTeamIndex = currentTeamId == 1 ? 1 : 0;
+
         Intent intent = new Intent(this, TurnActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("CURRENT_ROUND", currentRound);
         intent.putExtra("SCORE1", score1);
         intent.putExtra("SCORE2", score2);
-        intent.putExtra("CURRENT_TEAM", currentTeamId == 1 ? 1 : 0); // Switch to the other team
+        intent.putExtra("CURRENT_TEAM", nextTeamIndex);
         startActivity(intent);
         finish();
     }
@@ -133,4 +133,3 @@ public class GameplayActivity extends AppCompatActivity {
         }
     }
 }
-
