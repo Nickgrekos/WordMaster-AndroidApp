@@ -2,6 +2,7 @@ package com.example.wordmaster;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -80,5 +81,117 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void resetGame() {
         clearAllWords();
         clearAllTeams();
+    }
+
+    // Retrieve a random unused word
+    public String getRandomUnusedWord() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                TABLE_WORDS,
+                new String[]{COL_WORD},
+                COL_USED + " = 0",
+                null,
+                null,
+                null,
+                "RANDOM()",
+                "1"
+        );
+
+        String word = null;
+        if (cursor.moveToFirst()) {
+            word = cursor.getString(0);
+        }
+        cursor.close();
+        db.close();
+        return word;
+    }
+
+    // Mark a word as used
+    public void markWordAsUsed(String word) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_USED, 1);
+        db.update(TABLE_WORDS, values, COL_WORD + " = ?", new String[]{word});
+        db.close();
+    }
+
+    // Reset all words to unused
+    public void resetAllWordsToUnused() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_USED, 0);
+        db.update(TABLE_WORDS, values, null, null);
+        db.close();
+    }
+
+    // Get the number of unused words remaining
+    public int getUnusedWordCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_WORDS + " WHERE " + COL_USED + " = 0", null);
+        int count = 0;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        }
+        cursor.close();
+        db.close();
+        return count;
+    }
+
+    // Update team score
+    public void updateTeamScore(int teamId, int newScore) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_TEAM_SCORE, newScore);
+        db.update(TABLE_TEAMS, values, COL_TEAM_ID + " = ?", new String[]{String.valueOf(teamId)});
+        db.close();
+    }
+
+    // Get team score
+    public int getTeamScore(int teamId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                TABLE_TEAMS,
+                new String[]{COL_TEAM_SCORE},
+                COL_TEAM_ID + " = ?",
+                new String[]{String.valueOf(teamId)},
+                null,
+                null,
+                null
+        );
+        int score = 0;
+        if (cursor.moveToFirst()) {
+            score = cursor.getInt(0);
+        }
+        cursor.close();
+        db.close();
+        return score;
+    }
+
+    // Get all teams
+    public java.util.List<String> getAllTeams() {
+        java.util.List<String> teams = new java.util.ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT team_name FROM " + TABLE_TEAMS + " ORDER BY id ASC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                teams.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return teams;
+    }
+
+    // Get total number of words in the pool (used + unused)
+    public int getTotalWordCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_WORDS, null);
+        int count = 0;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        }
+        cursor.close();
+        db.close();
+        return count;
     }
 }

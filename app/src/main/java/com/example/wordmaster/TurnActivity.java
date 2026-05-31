@@ -43,6 +43,8 @@ public class TurnActivity extends AppCompatActivity {
 
         TextView tvCurrentTeam = findViewById(R.id.tvCurrentTeam);
         TextView tvRound = findViewById(R.id.tvRound);
+        TextView tvGameTitle = findViewById(R.id.tvGameTitle);
+        TextView tvWordCount = findViewById(R.id.tvWordCount);
         TextView tvTeam1Name = findViewById(R.id.tvTeam1Name);
         TextView tvTeam2Name = findViewById(R.id.tvTeam2Name);
         TextView tvScore1 = findViewById(R.id.tvScore1);
@@ -52,14 +54,47 @@ public class TurnActivity extends AppCompatActivity {
         // Εμφάνιση δεδομένων
         tvCurrentTeam.setText(currentTeamIndex == 0 ? team1Name : team2Name);
         tvRound.setText(currentRound + " / " + totalRounds);
+        // Set game title based on which round we're on
+        String gameTitle;
+        switch (currentRound) {
+            case 1:
+                gameTitle = "Περιγραφή"; // description round
+                break;
+            case 2:
+                gameTitle = "Παντομίμα"; // pantomime
+                break;
+            case 3:
+                gameTitle = "Μία Λέξη"; // one word
+                break;
+            default:
+                gameTitle = "Παιχνίδι";
+        }
+        tvGameTitle.setText(gameTitle);
+
+        // Word counter: remaining (unused) / total words
+        int remaining = dbHelper.getUnusedWordCount();
+        int totalWords = dbHelper.getTotalWordCount();
+        tvWordCount.setText(remaining + " / " + totalWords);
         tvTeam1Name.setText(team1Name);
         tvTeam2Name.setText(team2Name);
         tvScore1.setText(String.valueOf(score1));
         tvScore2.setText(String.valueOf(score2));
 
-        btnStart.setOnClickListener(v -> {
-            // εδώ θα πας στην οθόνη παιχνιδιού
-        });
+        btnStart.setOnClickListener(v -> startGameplay());
+    }
+
+    private void startGameplay() {
+        String currentTeamName = currentTeamIndex == 0 ? team1Name : team2Name;
+        int currentTeamId = currentTeamIndex + 1; // Team ID: 1 or 2
+
+        Intent intent = new Intent(this, GameplayActivity.class);
+        intent.putExtra("TEAM_NAME", currentTeamName);
+        intent.putExtra("TEAM_ID", currentTeamId);
+        intent.putExtra("TOTAL_ROUNDS", totalRounds);
+        intent.putExtra("CURRENT_ROUND", currentRound);
+        intent.putExtra("SCORE1", score1);
+        intent.putExtra("SCORE2", score2);
+        startActivity(intent);
     }
 
     private void loadTeamNames() {
