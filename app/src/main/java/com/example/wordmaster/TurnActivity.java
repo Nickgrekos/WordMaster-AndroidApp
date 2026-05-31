@@ -13,7 +13,7 @@ public class TurnActivity extends AppCompatActivity {
 
     DatabaseHelper dbHelper;
     String team1Name, team2Name;
-    int currentTeamIndex; // 0 = ομάδα1, 1 = ομάδα2
+    int currentTeamIndex;
     int currentRound;
     int totalRounds = 3;
     int score1 = 0;
@@ -37,24 +37,27 @@ public class TurnActivity extends AppCompatActivity {
     }
 
     private void refreshUI() {
-        // Παίρνουμε ονόματα ομάδων από τη βάση
         loadTeamNames();
 
-        // Παίρνουμε γύρο και σκορ από intent (ή αρχικές τιμές)
         currentRound = getIntent().getIntExtra("CURRENT_ROUND", 1);
         score1 = getIntent().getIntExtra("SCORE1", 0);
         score2 = getIntent().getIntExtra("SCORE2", 0);
         currentTeamIndex = getIntent().getIntExtra("CURRENT_TEAM", 0);
 
-        // Check if all words are used to advance the round
         int remainingAtStart = dbHelper.getUnusedWordCount();
         if (remainingAtStart == 0) {
             if (currentRound < totalRounds) {
                 currentRound++;
                 dbHelper.resetAllWordsToUnused();
             } else {
-                // Game finished logic could go here
-                android.widget.Toast.makeText(this, "Το παιχνίδι τελείωσε!", android.widget.Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, WinnerActivity.class);
+                intent.putExtra("SCORE1", score1);
+                intent.putExtra("SCORE2", score2);
+                intent.putExtra("TEAM1_NAME", team1Name);
+                intent.putExtra("TEAM2_NAME", team2Name);
+                startActivity(intent);
+                finish();
+                return;
             }
         }
 
@@ -68,27 +71,24 @@ public class TurnActivity extends AppCompatActivity {
         TextView tvScore2 = findViewById(R.id.tvScore2);
         Button btnStart = findViewById(R.id.btnStart);
 
-        // Εμφάνιση δεδομένων
         tvCurrentTeam.setText(currentTeamIndex == 0 ? team1Name : team2Name);
         tvRound.setText(currentRound + " / " + totalRounds);
-        // Set game title based on which round we're on
         String gameTitle;
         switch (currentRound) {
             case 1:
-                gameTitle = "Περιγραφή"; // description round
+                gameTitle = "Περιγραφή";
                 break;
             case 2:
-                gameTitle = "Παντομίμα"; // pantomime
+                gameTitle = "Παντομίμα";
                 break;
             case 3:
-                gameTitle = "Μία Λέξη"; // one word
+                gameTitle = "Μία Λέξη";
                 break;
             default:
                 gameTitle = "Παιχνίδι";
         }
         tvGameTitle.setText(gameTitle);
 
-        // Word counter: remaining (unused) / total words
         int remaining = dbHelper.getUnusedWordCount();
         int totalWords = dbHelper.getTotalWordCount();
         tvWordCount.setText(remaining + " / " + totalWords);

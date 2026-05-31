@@ -82,7 +82,6 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-        // ← ΑΛΛΑΓΗ: το btnNext τώρα ελέγχει ονόματα και αποθηκεύει στη βάση
         btnNext.setOnClickListener(v -> {
             String team1Name = etTeam1.getText().toString().trim();
             String team2Name = etTeam2.getText().toString().trim();

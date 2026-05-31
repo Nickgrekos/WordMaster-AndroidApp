@@ -83,7 +83,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         clearAllTeams();
     }
 
-    // Retrieve a random unused word
     public String getRandomUnusedWord() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
@@ -106,7 +105,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return word;
     }
 
-    // Mark a word as used (only one instance if duplicates exist)
     public void markWordAsUsed(String word) {
         SQLiteDatabase db = this.getWritableDatabase();
         String subQuery = "SELECT " + COL_ID + " FROM " + TABLE_WORDS + " WHERE " + COL_WORD + " = ? AND " + COL_USED + " = 0 LIMIT 1";
@@ -114,7 +112,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    // Reset all words to unused
     public void resetAllWordsToUnused() {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -123,7 +120,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    // Get the number of unused words remaining
     public int getUnusedWordCount() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_WORDS + " WHERE " + COL_USED + " = 0", null);
@@ -136,7 +132,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
-    // Update team score
     public void updateTeamScore(int teamId, int newScore) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -145,7 +140,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    // Get team score
     public int getTeamScore(int teamId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
@@ -166,7 +160,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return score;
     }
 
-    // Get all teams
     public java.util.List<String> getAllTeams() {
         java.util.List<String> teams = new java.util.ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -181,7 +174,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return teams;
     }
 
-    // Get total number of words in the pool (used + unused)
     public int getTotalWordCount() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_WORDS, null);

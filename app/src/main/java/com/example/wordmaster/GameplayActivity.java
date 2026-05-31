@@ -36,7 +36,6 @@ public class GameplayActivity extends AppCompatActivity {
 
         dbHelper = new DatabaseHelper(this);
 
-        // Get data from intent
         currentTeamName = getIntent().getStringExtra("TEAM_NAME");
         currentTeamId = getIntent().getIntExtra("TEAM_ID", 1);
         totalRounds = getIntent().getIntExtra("TOTAL_ROUNDS", 3);
@@ -51,17 +50,13 @@ public class GameplayActivity extends AppCompatActivity {
         btnSkip = findViewById(R.id.btnSkip);
         btnTick = findViewById(R.id.btnTick);
 
-        // Set team name
         tvTeamName.setText(currentTeamName);
 
-        // Load first word
         loadNextWord();
 
-        // Set up button listeners
         btnSkip.setOnClickListener(v -> skipWord());
         btnTick.setOnClickListener(v -> correctWord());
 
-        // Start timer
         startGameTimer();
     }
 
@@ -70,25 +65,20 @@ public class GameplayActivity extends AppCompatActivity {
         if (currentWord != null) {
             tvWord.setText(currentWord);
         } else {
-            // No more words available
             endTurn();
         }
     }
 
     private void skipWord() {
         if (currentWord != null) {
-            // Word is recycled (kept in unused pool), just load next word
             loadNextWord();
         }
     }
 
     private void correctWord() {
         if (currentWord != null) {
-            // Mark word as used
-            //this dbhelper method might need fixing
             dbHelper.markWordAsUsed(currentWord);
 
-            // Update score
             int newScore = (currentTeamId == 1) ? score1 + 1 : score2 + 1;
             if (currentTeamId == 1) {
                 score1 = newScore;
@@ -96,8 +86,6 @@ public class GameplayActivity extends AppCompatActivity {
                 score2 = newScore;
             }
             dbHelper.updateTeamScore(currentTeamId, newScore);
-
-            // Load next word
             loadNextWord();
         }
     }
@@ -120,16 +108,13 @@ public class GameplayActivity extends AppCompatActivity {
     }
 
     private void endTurn() {
-        // Cancel timer if still running
         if (gameTimer != null) {
             gameTimer.cancel();
         }
 
-        // Disable buttons
         btnSkip.setEnabled(false);
         btnTick.setEnabled(false);
 
-        // Navigate back to TurnActivity
         Intent intent = new Intent(this, TurnActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("CURRENT_ROUND", currentRound);

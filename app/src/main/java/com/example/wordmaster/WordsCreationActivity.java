@@ -58,7 +58,6 @@ public class WordsCreationActivity extends AppCompatActivity {
                 words.add(w);
             }
 
-            // Save words to database
             for (String w : words) {
                 dbHelper.insertWord(currentPlayer, w);
             }
@@ -68,7 +67,6 @@ public class WordsCreationActivity extends AppCompatActivity {
                 updateTitle();
                 clearFields();
             } else {
-                // Check if TurnActivity exists before navigating
                 startTurnActivity();
             }
         });
@@ -132,14 +130,13 @@ public class WordsCreationActivity extends AppCompatActivity {
         for (EditText et : wordInputFields) {
             et.setText("");
         }
-        // Focus the first field for convenience
+
         if (!wordInputFields.isEmpty()) {
             wordInputFields.get(0).requestFocus();
         }
     }
 
     private void startTurnActivity() {
-        // Since I'm not sure if TurnActivity exists yet, I'll try to find it
         Intent intent = new Intent(this, TurnActivity.class);
         intent.putExtra("CURRENT_ROUND", 1);
         intent.putExtra("SCORE1", 0);
