@@ -32,17 +32,21 @@ public class WinnerActivity extends AppCompatActivity {
         tvFinalScore1.setText(String.valueOf(score1));
         tvFinalScore2.setText(String.valueOf(score2));
 
+        ConfettiView confettiView = findViewById(R.id.confettiView);
+
         if (score1 > score2) {
             tvWinnerName.setText(team1Name);
-            tvWinnerName.setTextColor(getColor(android.R.color.holo_blue_dark));
+            tvWinnerName.setTextColor(android.graphics.Color.parseColor("#BF360C")); // Deep Orange/Rust
             tvTrophyEmoji.setText("🏆");
+            confettiView.post(() -> confettiView.startConfetti(150));
         } else if (score2 > score1) {
             tvWinnerName.setText(team2Name);
-            tvWinnerName.setTextColor(getColor(android.R.color.holo_red_dark));
+            tvWinnerName.setTextColor(android.graphics.Color.parseColor("#BF360C"));
             tvTrophyEmoji.setText("🏆");
+            confettiView.post(() -> confettiView.startConfetti(150));
         } else {
             tvWinnerName.setText("Ισοπαλία!");
-            tvWinnerName.setTextColor(getColor(android.R.color.darker_gray));
+            tvWinnerName.setTextColor(android.graphics.Color.GRAY);
             tvTrophyEmoji.setText("🤝");
         }
 

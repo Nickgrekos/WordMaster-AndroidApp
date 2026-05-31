@@ -1,151 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:background="#E0F7FA"
-    android:orientation="vertical"
-    android:padding="32dp">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="#FFFDE7"
         android:orientation="vertical"
-        android:background="@drawable/card_bg"
-        android:padding="24dp"
-        android:gravity="center">
+        android:padding="32dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Νικήτρια Ομάδα"
-            android:textColor="#37474F"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
+            android:orientation="vertical"
+            android:background="@drawable/card_bg_winner_gold"
+            android:padding="24dp"
+            android:gravity="center"
+            android:elevation="8dp">
 
-        <TextView
-            android:id="@+id/tvWinnerName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ομάδα Α"
-            android:textColor="#1565C0"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Νικήτρια Ομάδα"
+                android:textColor="#795548"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
 
-        <TextView
-            android:id="@+id/tvTrophyEmoji"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="🏆"
-            android:textSize="80sp"
-            android:layout_marginBottom="20dp" />
+            <TextView
+                android:id="@+id/tvWinnerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ομάδα Α"
+                android:textColor="#BF360C"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Τελικό Σκορ"
-            android:textColor="#37474F"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="10dp" />
+            <TextView
+                android:id="@+id/tvTrophyEmoji"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🏆"
+                android:textSize="100sp"
+                android:layout_marginBottom="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Τελικό Σκορ"
+                android:textColor="#795548"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/team_name_bg_winner_gold"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tvTeam1Name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ομάδα Α"
+                        android:textColor="#1565C0"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvFinalScore1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="28"
+                        android:textColor="#1565C0"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#E0E0E0" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tvTeam2Name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ομάδα Β"
+                        android:textColor="#C62828"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvFinalScore2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="21"
+                        android:textColor="#C62828"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@drawable/team_name_bg"
-            android:padding="16dp">
+            android:layout_marginTop="24dp"
+            android:gravity="center">
 
-            <LinearLayout
+            <Button
+                android:id="@+id/btnBackHome"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:layout_height="56dp"
+                android:text="Back to Home"
+                android:textSize="15sp"
+                android:textColor="#37474F"
+                android:backgroundTint="#E0E0E0"
+                android:layout_marginEnd="8dp" />
 
-                <TextView
-                    android:id="@+id/tvTeam1Name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ομάδα Α"
-                    android:textColor="#1565C0"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvFinalScore1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="28"
-                    android:textColor="#1565C0"
-                    android:textSize="28sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#E0E0E0" />
-
-            <LinearLayout
+            <Button
+                android:id="@+id/btnPlayAgain"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:layout_height="56dp"
+                android:text="Play Again"
+                android:textSize="15sp"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#FFB300"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvTeam2Name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ομάδα Β"
-                    android:textColor="#C62828"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvFinalScore2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="21"
-                    android:textColor="#C62828"
-                    android:textSize="28sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
+    <com.example.wordmaster.ConfettiView
+        android:id="@+id/confettiView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="24dp"
-        android:gravity="center">
+        android:layout_height="match_parent" />
 
-        <Button
-            android:id="@+id/btnBackHome"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="56dp"
-            android:text="Back to Home"
-            android:textSize="15sp"
-            android:textColor="#37474F"
-            android:backgroundTint="#E0E0E0"
-            android:layout_marginEnd="8dp" />
-
-        <Button
-            android:id="@+id/btnPlayAgain"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="56dp"
-            android:text="Play Again"
-            android:textSize="15sp"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#43A047" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</FrameLayout>
