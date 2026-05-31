@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient">
+    android:fillViewport="true"
+    android:background="#E1F5FE">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Game Settings"
-            android:textColor="#FFFFFF"
+            android:textColor="#0277BD"
             android:textSize="26sp"
             android:textStyle="bold"
             android:layout_gravity="center"
@@ -26,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
             android:text="@string/TeamName1str"
-            android:textColor="#FFFFFF"
+            android:textColor="#01579B"
             android:textSize="14sp" />
 
         <EditText
@@ -34,10 +35,11 @@
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginBottom="16dp"
-            android:background="#FFFFFF"
+            android:background="@drawable/game_input_bg"
             android:hint="@string/hintForTeam1NameStr"
             android:inputType="text"
-            android:paddingStart="12dp" />
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp" />
 
         <!-- Όνομα Ομάδας 2 -->
         <TextView
@@ -45,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
             android:text="@string/TeamName2str"
-            android:textColor="#FFFFFF"
+            android:textColor="#01579B"
             android:textSize="14sp" />
 
         <EditText
@@ -53,10 +55,11 @@
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginBottom="16dp"
-            android:background="#FFFFFF"
+            android:background="@drawable/game_input_bg"
             android:hint="@string/hintForTeam2NameStr"
             android:inputType="text"
-            android:paddingStart="12dp" />
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp" />
 
         <!-- Συνολικός αριθμός παικτών -->
         <TextView
@@ -64,14 +67,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
             android:text="@string/TotalNumPlayersStr"
-            android:textColor="#FFFFFF"
+            android:textColor="#01579B"
             android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:orientation="horizontal"
-            android:background="#FFFFFF"
+            android:background="@drawable/game_input_bg"
             android:gravity="center_vertical"
             android:layout_marginBottom="16dp">
 
@@ -117,14 +120,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
             android:text="@string/wordsPerPersonStr"
-            android:textColor="#FFFFFF"
+            android:textColor="#01579B"
             android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:orientation="horizontal"
-            android:background="#FFFFFF"
+            android:background="@drawable/game_input_bg"
             android:gravity="center_vertical"
             android:layout_marginBottom="32dp">
 
