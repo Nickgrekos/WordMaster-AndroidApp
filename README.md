@@ -195,10 +195,10 @@ Automated testing:
 
 ## TODO / Roadmap
 
-- Add robust orientation handling (ViewModel + saved state) for timer and gameplay state.
-- Improve responsive UI for tablets and large screens (landscape tablet layouts).
+- Add color sellections for each team.
+- Add language support (English and Greek).
+- Make the main Screen look better.
 - Add unit and UI tests for game flow.
-- Add settings for timer duration and round configuration.
 
 
 ## License
