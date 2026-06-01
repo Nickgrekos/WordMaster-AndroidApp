@@ -11,13 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WordsCreationActivity extends AppCompatActivity {
+public class WordsCreationActivity extends BaseActivity {
 
     private int currentPlayer = 1;
     private int totalPlayers;
@@ -101,6 +100,8 @@ public class WordsCreationActivity extends AppCompatActivity {
 
             EditText etWord = new EditText(this);
             etWord.setHint("Γράψε μια λέξη...");
+            etWord.setTextColor(Color.parseColor("#212121")); // Dark text
+            etWord.setHintTextColor(Color.parseColor("#9E9E9E")); // Lighter hint
             etWord.setPadding((int) (16 * density), 0, 0, 0);
             etWord.setInputType(android.text.InputType.TYPE_CLASS_TEXT);
             etWord.setBackground(ContextCompat.getDrawable(this, R.drawable.input_bg));

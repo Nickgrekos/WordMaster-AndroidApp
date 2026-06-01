@@ -6,9 +6,7 @@ import android.os.CountDownTimer;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class GameplayActivity extends AppCompatActivity {
+public class GameplayActivity extends BaseActivity {
 
     private DatabaseHelper dbHelper;
     private String currentTeamName;
@@ -112,7 +110,6 @@ public class GameplayActivity extends AppCompatActivity {
         btnSkip.setEnabled(false);
         btnTick.setEnabled(false);
 
-        // ← ΔΙΟΡΘΩΣΗ: σωστή εναλλαγή ομάδας
         int nextTeamIndex = currentTeamId == 1 ? 1 : 0;
 
         Intent intent = new Intent(this, TurnActivity.class);

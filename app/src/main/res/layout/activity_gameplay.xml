@@ -1,136 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#FFF0F5"
-    android:padding="24dp">
+    android:fillViewport="true"
+    android:background="#FFF0F5">
 
-    <!-- Header: Team Name -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
-        android:layout_marginBottom="24dp">
+        android:padding="24dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Παίζει η ομάδα:"
-            android:textColor="#5D4037"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tvTeamName"
+        <!-- Header: Team Name -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/team_name_bg_gameplay"
+            android:orientation="vertical"
             android:gravity="center"
-            android:padding="16dp"
-            android:text="Ομάδα Α"
-            android:textColor="#5D4037"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+            android:layout_marginBottom="24dp">
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Παίζει η ομάδα:"
+                android:textColor="#5D4037"
+                android:textSize="20sp" />
 
-    <!-- Timer -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginBottom="32dp">
+            <TextView
+                android:id="@+id/tvTeamName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/team_name_bg_gameplay"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="Ομάδα Α"
+                android:textColor="#5D4037"
+                android:textSize="28sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="⏱"
-            android:textColor="#C62828"
-            android:textSize="48sp" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvTimer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="01:00"
-            android:textColor="#C62828"
-            android:textSize="48sp"
-            android:textStyle="bold"
-            android:fontFamily="monospace" />
-
-    </LinearLayout>
-
-    <!-- Word Card -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/card_bg_gameplay"
-        android:padding="32dp"
-        android:layout_marginBottom="24dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Λέξη:"
-            android:textColor="#5D4037"
-            android:textSize="18sp"
-            android:layout_marginBottom="16dp" />
-
-        <TextView
-            android:id="@+id/tvWord"
+        <!-- Timer -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="..."
-            android:textColor="#1B5E20"
-            android:textSize="44sp"
-            android:textStyle="bold"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:minHeight="100dp" />
+            android:layout_marginBottom="32dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="⏱"
+                android:textColor="#C62828"
+                android:textSize="48sp" />
+
+            <TextView
+                android:id="@+id/tvTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="01:00"
+                android:textColor="#C62828"
+                android:textSize="48sp"
+                android:textStyle="bold"
+                android:fontFamily="monospace" />
+
+        </LinearLayout>
+
+        <!-- Word Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/card_bg_gameplay"
+            android:padding="32dp"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Λέξη:"
+                android:textColor="#5D4037"
+                android:textSize="18sp"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:id="@+id/tvWord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="..."
+                android:textColor="#1B5E20"
+                android:textSize="44sp"
+                android:textStyle="bold"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        <!-- Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <!-- Skip Button (Red) -->
+            <Button
+                android:id="@+id/btnSkip"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp"
+                android:text="Skip"
+                android:textSize="18sp"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#E53935"
+                android:textStyle="bold" />
+
+            <!-- Tick Button (Green) -->
+            <Button
+                android:id="@+id/btnTick"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:text="✓ Got it"
+                android:textSize="18sp"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#43A047"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-    <!-- Buttons -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:spacing="16dp">
-
-        <!-- Skip Button (Red) -->
-        <Button
-            android:id="@+id/btnSkip"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="12dp"
-            android:text="Skip"
-            android:textSize="18sp"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#E53935"
-            android:textStyle="bold" />
-
-        <!-- Tick Button (Green) -->
-        <Button
-            android:id="@+id/btnTick"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:layout_marginStart="12dp"
-            android:text="✓ Got it"
-            android:textSize="18sp"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#43A047"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-</LinearLayout>
-
+</ScrollView>

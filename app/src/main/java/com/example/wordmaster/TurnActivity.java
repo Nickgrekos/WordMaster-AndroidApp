@@ -6,10 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
-import java.util.Random;
 
-public class TurnActivity extends AppCompatActivity {
+public class TurnActivity extends BaseActivity {
 
     DatabaseHelper dbHelper;
     String team1Name, team2Name;

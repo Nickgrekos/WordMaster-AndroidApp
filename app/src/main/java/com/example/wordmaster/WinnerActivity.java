@@ -4,9 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
 
-public class WinnerActivity extends AppCompatActivity {
+public class WinnerActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,7 @@ public class WinnerActivity extends AppCompatActivity {
 
         if (score1 > score2) {
             tvWinnerName.setText(team1Name);
-            tvWinnerName.setTextColor(android.graphics.Color.parseColor("#BF360C")); // Deep Orange/Rust
+            tvWinnerName.setTextColor(android.graphics.Color.parseColor("#BF360C"));
             tvTrophyEmoji.setText("🏆");
             confettiView.post(() -> confettiView.startConfetti(150));
         } else if (score2 > score1) {

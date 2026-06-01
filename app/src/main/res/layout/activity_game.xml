@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
@@ -39,7 +40,9 @@
             android:hint="@string/hintForTeam1NameStr"
             android:inputType="text"
             android:paddingStart="16dp"
-            android:paddingEnd="16dp" />
+            android:paddingEnd="16dp"
+            android:textColor="#212121"
+            android:textColorHint="#9E9E9E" />
 
         <!-- Όνομα Ομάδας 2 -->
         <TextView
@@ -59,7 +62,9 @@
             android:hint="@string/hintForTeam2NameStr"
             android:inputType="text"
             android:paddingStart="16dp"
-            android:paddingEnd="16dp" />
+            android:paddingEnd="16dp"
+            android:textColor="#212121"
+            android:textColorHint="#9E9E9E" />
 
         <!-- Συνολικός αριθμός παικτών -->
         <TextView
