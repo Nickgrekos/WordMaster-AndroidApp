@@ -1,205 +1,134 @@
+![WordMaster Demo]⬇️▶️
 
-https://github.com/user-attachments/assets/f60e8969-3cff-4810-a319-e94044772123
+(https://github.com/user-attachments/assets/1e0a3cba-0586-445b-b896-06a793d6ae80)
 
-# WordMaster (Fishbowl) — Android
-
-WordMaster is an Android implementation of the classic "Fishbowl" / party-word-guessing game. Players (in teams) contribute words, then take turns trying to get their teammates to guess as many words as possible within a timed round. This repository contains the Android app code, layouts, and database helper used by the app.
-
---
-
-## Table of contents
-
-- Overview
-- App Flow (screens)
-- Features
-- Prerequisites
-- Setup & Build
-- Run on device / emulator
-- Landscape / multi-orientation support (how it works and how to extend)
-- Project structure
-- Database / words model
-- How to test
-- Contribution & development notes
-- Troubleshooting
-- License
-
---
-
-## Overview
-
-The WordMaster Android app implements the core game flow:
-
-1. Home screen (start / how to play)
-2. Lobby / game settings (team names, number of players, words per player)
-3. Word input screen — players enter their words
-4. Ready-to-play screen — shows which team starts, round, and score
-5. Gameplay screen — shows a single word card, 60s timer, Skip (recycle) and Tick (correct) buttons
-6. End game screen — final score, winner, replay/back to home
-7. How to Play screen (rules/instructions)
-
-The app uses a simple local SQLite database (helper class `DatabaseHelper`) to store the pool of words and their used/unused state during a game.
-
---
-
-## Features
-
-- Enter words per player and persist them in-app
-- Round-based play (3 rounds):
-  - Round 1: Περιγραφή (Description)
-  - Round 2: Παντομίμα (Pantomime)
-  - Round 3: Μία Λέξη (One Word)
-- Gameplay with a 60-second countdown timer
-- Skip button: recycles the current word back into the pool
-- Tick button: marks the word guessed and awards a point to the current team
-- Word counter showing remaining / total words
-- Score and round management across teams
-- Designed UI that maps to the app flow (see app layouts in `app/src/main/res/layout`)
-
---
-
-## Prerequisites
-
-- Java JDK 11 or newer (installed and JAVA_HOME configured)
-- Android SDK (platforms and build tools for the project's compileSdkVersion)
-- Android Studio (recommended) or Gradle CLI
-- Gradle wrapper is included in the repository; you can use `./gradlew` (Linux/macOS) or `gradlew.bat` (Windows)
+<img width="1254" height="1254" alt="203d0454-3f63-4c14-aec2-37bdc82f421b" src="https://github.com/user-attachments/assets/da9235e5-b2d8-44a1-9d4f-670308489f58" />
 
 
-## Setup & Build (Windows / PowerShell)
+# 🎯 WordMaster
 
-Open PowerShell and run these commands from the project root (`WordMaster-AndroidApp`):
+> A Greek party word game for Android — describe it, mime it, say it in one word.
 
-```powershell
-# change directory to project root
-cd "C:\Users\User\Desktop\themata\android dev\WordMaster-AndroidApp"
+WordMaster is a multiplayer party game for **2 teams** and **4–25 players**. Each player secretly adds words to a shared pool, then teams compete across three rounds to guess them all: first with descriptions, then with mime, then with just a single word. It's a memory game wrapped in a guessing game.
 
-# build the project (assemble debug)
-.\gradlew assembleDebug --no-daemon
+---
 
-# or compile Java sources only
-.\gradlew compileDebugJavaWithJavac --no-daemon
+## 📸 Screens
+
+| Main Menu | Game Setup | Word Entry | Gameplay | Winner |
+|-----------|------------|------------|----------|--------|
+| Play & How To Play | Team names + player/word count | Each player submits their words privately | 60-second countdown per turn | Scores, winner, confetti 🎉 |
+
+---
+
+## 🎮 How It Works
+
+1. **Setup** — Choose how many players (4–25) and words per player (3–10), then name your two teams.
+2. **Word Entry** — Each player privately types their words into the shared pool. No peeking.
+3. **Round 1 – Περιγραφή (Description)** — Describe the word without saying it. Your team guesses as many as possible in 60 seconds.
+4. **Round 2 – Παντομίμα (Mime)** — Same words, no talking. Act it out.
+5. **Round 3 – Μία Λέξη (One Word)** — Same words again. You get exactly one word as a clue.
+6. **Winner** — The team with the most points across all three rounds wins.
+
+> The twist: because the same words repeat across all three rounds, players slowly memorize the pool — making Round 3 feel like a shared inside joke.
+
+---
+
+## 🏗️ Architecture
+
+```
+com.example.wordmaster
+├── BaseActivity.java          # Edge-to-edge insets base class
+├── MainActivity.java          # Entry point: Play / How To Play
+├── GameActivity.java          # Game setup: player count, word count, team names
+├── WordsCreationActivity.java # Word submission, one player at a time
+├── TurnActivity.java          # Between turns: scores, round info, next team
+├── GameplayActivity.java      # Live gameplay: 60s timer, skip / correct
+├── WinnerActivity.java        # End screen with final scores and confetti
+├── ConfettiView.java          # Custom animated confetti view
+└── DatabaseHelper.java        # SQLite: words pool + team scores
 ```
 
-To open and work with the project interactively, open it in Android Studio: File → Open... and select the project directory.
+### Data Flow
 
-
-## Run on device / emulator
-
-- Use Android Studio: Run → Select a device → Run app
-- Or use adb with the generated APK (debug build path):
-
-```powershell
-# assemble debug APK
-.\gradlew assembleDebug --no-daemon
-
-# install (example path, adjust for your module & Gradle output)
-adb install -r app\build\outputs\apk\debug\app-debug.apk
+```
+GameActivity
+    └─► WordsCreationActivity  (inserts words into SQLite)
+            └─► TurnActivity   (reads scores + round state)
+                    └─► GameplayActivity  (marks words used, updates scores)
+                            └─► TurnActivity  (loops until all rounds done)
+                                    └─► WinnerActivity
 ```
 
+---
 
-## Landscape / multi-orientation support
+## 🗄️ Database Schema
 
-Requirement: make every activity functional and fully viewable in landscape mode.
+**`words`**
+| Column | Type | Description |
+|--------|------|-------------|
+| `id` | INTEGER PK | Auto-increment |
+| `player_number` | INTEGER | Which player submitted this word |
+| `word` | TEXT | The word itself |
+| `is_used` | INTEGER | 0 = available, 1 = guessed this round |
 
-What the app currently does:
-- Layouts are located in `app/src/main/res/layout` for portrait by default.
+**`teams`**
+| Column | Type | Description |
+|--------|------|-------------|
+| `id` | INTEGER PK | Auto-increment |
+| `team_name` | TEXT | Team display name |
+| `score` | INTEGER | Cumulative score across all rounds |
 
-Recommended approach (what has been applied or should be applied during development):
+> At the end of each round, `is_used` is reset to `0` for all words so the same pool repeats. Scores are **cumulative** — they carry over across rounds.
 
-1. Provide landscape-specific layouts: create matching files in `app/src/main/res/layout-land/` for activities that require different arrangements. Android will automatically load the `layout-land` variant when the device is in landscape.
-2. Use responsive containers: prefer `ConstraintLayout` or nested `LinearLayout` with `ScrollView` for content that may overflow. This allows the UI to adapt in both portrait and landscape without fully separate layouts in some cases.
-3. Set flexible text sizes and use `wrap_content`/`0dp` constraints with weights or constraints to avoid clipping.
-4. Avoid forcing a single screen orientation in `AndroidManifest.xml` unless necessary. If an activity should always be landscape, set `android:screenOrientation="landscape"`. Otherwise let the system handle rotations.
-5. Test on multiple screen sizes and densities (tablet landscape is common). In Android Studio, use the Layout Inspector and rotate the preview.
+---
 
-Practical checklist to fully support landscape for all activities:
-- [ ] Inspect each layout in `app/src/main/res/layout` and decide if a `-land` variant is needed.
-- [ ] Create `layout-land` variants and rearrange controls for horizontal space (e.g., timer and card side-by-side with controls).
-- [ ] Wrap long vertically stacking content in a `ScrollView` or use two-column layout in landscape.
-- [ ] Ensure any background drawables or images scale correctly (use 9-patch when appropriate).
-- [ ] Verify `android:configChanges` is NOT misused. Prefer `onSaveInstanceState`/`ViewModel` to preserve state across rotations.
+## 🛠️ Tech Stack
 
-Tip: For the `Gameplay` screen, a good landscape layout is a horizontal split: left side large card + timer, right side Skip / Tick buttons stacked vertically with score and team name above.
+- **Language:** Java
+- **Min SDK:** Android (Edge-to-Edge support via `androidx.core`)
+- **Database:** SQLite via `SQLiteOpenHelper`
+- **UI:** XML layouts + Material Snackbar
+- **Dependencies:** AndroidX AppCompat, Material Components, Core-KTX
 
+---
 
-## Project structure (high level)
+## 📋 Game Rules at a Glance
 
-- app/
-  - src/main/java/...
-    - activities/ (HomeActivity, TurnActivity, GameplayActivity, etc.)
-    - data/ (DatabaseHelper.java)
-  - src/main/res/layout/ (activity xml files)
-  - src/main/res/values/ (strings, colors, dimens)
-  - build.gradle.kts (module build file)
+| | Round 1 | Round 2 | Round 3 |
+|-|---------|---------|---------|
+| **Name** | Περιγραφή | Παντομίμα | Μία Λέξη |
+| **Allowed** | Any words/gestures | No talking | One word only |
+| **Time** | 60 seconds | 60 seconds | 60 seconds |
+| **Skip** | ✅ Yes | ✅ Yes | ✅ Yes |
 
+- Skipped words stay in the pool and can appear again later in the same turn.
+- If the word pool empties mid-turn, the turn ends early.
+- The game ends after all three rounds are complete.
 
-## Database & Data model
+---
 
-- The app uses a local SQLite DB through a `DatabaseHelper` helper class.
-- Words are stored with flags indicating `used` or `unused` for the current game. Typical columns:
-  - id (int primary key)
-  - word (text)
-  - contributor (optional player/team id)
-  - is_used (0/1)
+## 🤝 Contributing
 
-Useful helper methods typically available or recommended in `DatabaseHelper`:
-- `addWord(word)`
-- `getRandomUnusedWord()`
-- `markWordAsUsed(wordId)`
-- `resetAllWordsToUnused()`
-- `getUnusedWordCount()` / `getTotalWordCount()`
+Pull requests are welcome. For major changes please open an issue first.
 
+- Keep UI strings in `res/values/strings.xml` for localization support.
+- Use `ViewModel` + `onSaveInstanceState` to preserve state across rotations rather than locking screen orientation.
+- When changing the DB schema, add a proper migration in `onUpgrade()` to avoid data loss on update.
+- When adding new activities, extend `BaseActivity` to get Edge-to-Edge insets for free.
 
-## How the rounds and titles map
+---
 
-The app uses three rounds, each with a different title that affects how words are conveyed:
-- Round 1 — "Περιγραφή" (Description)
-- Round 2 — "Παντομίμα" (Pantomime)
-- Round 3 — "Μία Λέξη" (One Word)
+## 🗺️ Roadmap
 
-The `TurnActivity` displays the current round number and the appropriate game title, and shows a word counter x/y representing "words left to be won / total words".
+- [ ] Color selection per team
+- [ ] Additional game settings customization (ability to skip toggle, timmer modifier)
+- [ ] English / Greek language toggle
+- [ ] Improve main screen UI
+- [ ] Unit and UI tests for the full game flow
 
+---
 
-## How to test
+## 📄 License
 
-Manual testing checklist:
-- Add words via the Word Input screen (ensure they are saved to the DB)
-- Start a game and verify the Ready-to-Play screen shows current team and round
-- In Gameplay:
-  - Verify timer counts down from 60 seconds
-  - Press "Tick" — the current word is marked used and team score increments
-  - Press "Skip" — the current word is recycled (remains unused)
-  - Confirm the word counter updates appropriately (remaining / total)
-- Switch device orientation to landscape during gameplay and confirm UI adapts and state remains (timer and current word should not reset on rotation)
-- End game → confirm final results and replay or back to home behavior
-
-Automated testing:
-- Add unit tests for `DatabaseHelper` methods (word counts, mark used/reset) using Robolectric or instrumentation tests as needed.
-
-
-## Contribution & development notes
-
-- Prefer using Android Studio for editing and running the app.
-- Keep UI strings in `res/values/strings.xml` for localization.
-- Use `ViewModel` and `LiveData` (or Jetpack libraries) to preserve UI state across rotations rather than locking orientation.
-- When adding new layouts, include `layout-land` variants if the orientation changes require major rearrangement.
-- Add new database migrations (if schema changes) to avoid data loss on upgrade.
-
-
-## Troubleshooting
-
-- Gradle build errors: run `./gradlew clean assembleDebug --stacktrace` and inspect the stacktrace.
-- Missing SDK platforms: install the required Android SDK platform via the SDK Manager matching the project's `compileSdkVersion`.
-- Layout clipping in landscape: create a `layout-land` variant and switch to a two-column or scrollable layout.
-
-
-## TODO / Roadmap
-
-- Add color sellections for each team.
-- Add language support (English and Greek).
-- Make the main Screen look better.
-- Add unit and UI tests for game flow.
-
-
-## License
--no license yet. 
+No license yet.
