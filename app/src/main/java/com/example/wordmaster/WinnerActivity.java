@@ -35,12 +35,14 @@ public class WinnerActivity extends BaseActivity {
 
         if (score1 > score2) {
             tvWinnerName.setText(team1Name);
-            tvWinnerName.setTextColor(android.graphics.Color.parseColor("#BF360C"));
+            //ισως στο μελον βαλουμε διαφορετικο χρωμα για τον νικητη αναλογα με το χρομα της ομαδας
+            //tvWinnerName.setTextColor(android.graphics.Color.parseColor("#BF360C"));
             tvTrophyEmoji.setText("🏆");
             confettiView.post(() -> confettiView.startConfetti(150));
         } else if (score2 > score1) {
             tvWinnerName.setText(team2Name);
-            tvWinnerName.setTextColor(android.graphics.Color.parseColor("#BF360C"));
+            //ισως στο μελον βαλουμε διαφορετικο χρωμα για τον νικητη αναλογα με το χρομα της ομαδας
+            //tvWinnerName.setTextColor(android.graphics.Color.parseColor("#BF360C"));
             tvTrophyEmoji.setText("🏆");
             confettiView.post(() -> confettiView.startConfetti(150));
         } else {
