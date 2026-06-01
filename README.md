@@ -1,4 +1,4 @@
-![WordMaster Demo]⬇️▶️
+![WordMaster Demo]⬇️
 
 https://github.com/user-attachments/assets/d151f865-b887-488c-a289-851fc15a403b
 
