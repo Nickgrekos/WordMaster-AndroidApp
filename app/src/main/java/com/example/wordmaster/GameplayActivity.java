@@ -24,7 +24,7 @@ public class GameplayActivity extends BaseActivity {
     private Button btnSkip;
     private Button btnTick;
 
-    private static final long GAME_DURATION = 10000;
+    private static final long GAME_DURATION = 60000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

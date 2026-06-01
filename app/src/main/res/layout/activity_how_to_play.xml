@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,8 +32,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:background="@drawable/how_to_play_card_bg"
+            android:elevation="2dp"
             android:padding="20dp"
-            android:elevation="2dp">
+            tools:elevation="3dp">
 
             <TextView
                 android:id="@+id/rulesTxt"
