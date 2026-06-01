@@ -147,6 +147,8 @@ Pull requests are welcome. For major changes please open an issue first.
 - [ ] Color selection per team
 - [ ] Additional game settings customization (ability to skip toggle, timmer modifier)
 - [ ] English / Greek language toggle
+- [ ] Sounds / music
+- [ ] more animations
 - [ ] Improve main screen UI
 - [ ] Unit and UI tests for the full game flow
 
