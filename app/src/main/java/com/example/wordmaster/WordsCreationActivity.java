@@ -139,9 +139,11 @@ public class WordsCreationActivity extends BaseActivity {
 
     private void startTurnActivity() {
         Intent intent = new Intent(this, TurnActivity.class);
+        int startingTeam = new java.util.Random().nextInt(2);
         intent.putExtra("CURRENT_ROUND", 1);
         intent.putExtra("SCORE1", 0);
         intent.putExtra("SCORE2", 0);
+        intent.putExtra("CURRENT_TEAM", startingTeam);
         startActivity(intent);
     }
 }
