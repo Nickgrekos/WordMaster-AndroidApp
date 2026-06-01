@@ -1,3 +1,6 @@
+
+https://github.com/user-attachments/assets/f60e8969-3cff-4810-a319-e94044772123
+
 # WordMaster (Fishbowl) — Android
 
 WordMaster is an Android implementation of the classic "Fishbowl" / party-word-guessing game. Players (in teams) contribute words, then take turns trying to get their teammates to guess as many words as possible within a timed round. This repository contains the Android app code, layouts, and database helper used by the app.
